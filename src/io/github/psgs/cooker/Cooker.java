@@ -1,21 +1,17 @@
 package io.github.psgs.cooker;
 
-import java.util.logging.Logger;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Cooker extends JavaPlugin {
+import java.util.logging.Level;
 
-    public Cooker(Cooker plugin) {
-    }
+public class Cooker extends JavaPlugin {
 
     @Override
     public void onEnable() {
@@ -30,38 +26,51 @@ public class Cooker extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("cook")) {
             if (sender.hasPermission("cooker.cook")) {
-                Player p = Bukkit.getPlayer(sender.getName());
-                String sn = sender.getName();
+                Player player = Bukkit.getPlayer(sender.getName());
+                String senderName = sender.getName();
 
-                ItemStack i = p.getItemInHand();
+                ItemStack itemInHand = player.getItemInHand();
+                int itemCount = itemInHand.getAmount();
 
-                ItemStack cb = new ItemStack(Material.COOKED_BEEF);
-                ItemStack cc = new ItemStack(Material.COOKED_CHICKEN);
-                ItemStack cf = new ItemStack(Material.COOKED_FISH);
-                ItemStack cp = new ItemStack(Material.GRILLED_PORK);
+                switch (itemInHand.getType()) {
+                    case RAW_BEEF:
+                        ItemStack cookedBeef = new ItemStack(Material.COOKED_BEEF, itemCount);
+                        player.setItemInHand(cookedBeef);
+                        this.getLogger().log(Level.INFO, senderName + " cooked " + itemCount + " Raw Beef!");
+                        sender.sendMessage(ChatColor.GOLD + "Item Cooked!");
+                        break;
 
-                if (i.equals(Material.RAW_BEEF)) {
-                    p.setItemInHand(cb);
-                    System.out.println(sn + " cooked Raw Beef!");
-                    sender.sendMessage(ChatColor.GOLD + "Item Cooked!");
-                }
+                    case RAW_CHICKEN:
+                        ItemStack cookedChicken = new ItemStack(Material.COOKED_CHICKEN, itemCount);
+                        player.setItemInHand(cookedChicken);
+                        this.getLogger().log(Level.INFO, senderName + " cooked " + itemCount + " Raw Chicken!");
+                        sender.sendMessage(ChatColor.GOLD + "Item Cooked!");
+                        break;
 
-                if (i.equals(Material.RAW_CHICKEN)) {
-                    p.setItemInHand(cc);
-                    System.out.println(sn + " cooked Raw Chicken!");
-                    sender.sendMessage(ChatColor.GOLD + "Item Cooked!");
-                }
+                    case RAW_FISH:
+                        ItemStack cookedFish = new ItemStack(Material.COOKED_FISH, itemCount);
+                        player.setItemInHand(cookedFish);
+                        this.getLogger().log(Level.INFO, senderName + " cooked " + itemCount + " Raw Fish!");
+                        sender.sendMessage(ChatColor.GOLD + "Item Cooked!");
+                        break;
 
-                if (i.equals(Material.RAW_FISH)) {
-                    p.setItemInHand(cf);
-                    System.out.println(sn + " cooked Raw Fish!");
-                    sender.sendMessage(ChatColor.GOLD + "Item Cooked!");
-                }
+                    case PORK:
+                        ItemStack cookedPork = new ItemStack(Material.GRILLED_PORK, itemCount);
+                        player.setItemInHand(cookedPork);
+                        this.getLogger().log(Level.INFO, senderName + " cooked " + itemCount + " Raw Pork!");
+                        sender.sendMessage(ChatColor.GOLD + "Item Cooked!");
+                        break;
 
-                if (i.equals(Material.PORK)) {
-                    p.setItemInHand(cp);
-                    System.out.println(sn + " cooked Raw Pork!");
-                    sender.sendMessage(ChatColor.GOLD + "Item Cooked!");
+                    case POTATO:
+                        ItemStack cookedPotato = new ItemStack(Material.BAKED_POTATO, itemCount);
+                        player.setItemInHand(cookedPotato);
+                        this.getLogger().log(Level.INFO, senderName + " cooked " + itemCount + " Potato!");
+                        sender.sendMessage(ChatColor.GOLD + "Item Cooked!");
+                        break;
+
+                    default:
+                        sender.sendMessage(ChatColor.GOLD + "[Cooker]" + ChatColor.RED + "The item you're holding can't be cooked!");
+                        break;
                 }
             }
         }

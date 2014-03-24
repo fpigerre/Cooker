@@ -1,7 +1,7 @@
 Cooker [![Build Status](https://travis-ci.org/psgs/Cooker.png?branch=master)](https://travis-ci.org/psgs/Cooker)
 ======
 
-A really lightweight plugin to cook items on command!
+A really lightweight [bukkit](http://bukkit.org) plugin to cook items on command!
 
 No configuration required! Simply download the jar and drop it in your plugins folder.
 

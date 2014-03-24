@@ -1,7 +1,7 @@
 name: Cooker
 main: io.github.psgs.cooker.Cooker
 description: Cooks stuff.
-version: 1.0
+version: 1.1
 
 commands:
    cook:
