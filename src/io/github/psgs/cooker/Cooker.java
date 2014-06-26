@@ -61,7 +61,7 @@ public class Cooker extends JavaPlugin {
                         sender.sendMessage(ChatColor.GOLD + "Item Cooked!");
                         break;
 
-                    case POTATO:
+                    case POTATO_ITEM:
                         ItemStack cookedPotato = new ItemStack(Material.BAKED_POTATO, itemCount);
                         player.setItemInHand(cookedPotato);
                         this.getLogger().log(Level.INFO, senderName + " cooked " + itemCount + " Potato!");
@@ -69,7 +69,7 @@ public class Cooker extends JavaPlugin {
                         break;
 
                     default:
-                        sender.sendMessage(ChatColor.GOLD + "[Cooker]" + ChatColor.RED + "The item you're holding can't be cooked!");
+                        sender.sendMessage(ChatColor.GOLD + "[Cooker]" + ChatColor.RED + " The item you're holding can't be cooked!");
                         break;
                 }
             }
